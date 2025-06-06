@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   --background: 0 0% 100%;
@@ -31,11 +31,13 @@
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
   
-  /* Portfolio specific colors */
-  --portfolio-primary: 221 83% 53%; /* #2563EB */
-  --portfolio-secondary: 222 47% 11%; /* #1E293B */
-  --portfolio-accent: 188 94% 43%; /* #06B6D4 */
-  --portfolio-neutral: 210 40% 98%; /* #F8FAFC */
+  /* Portfolio specific colors - Futuristic Theme */
+  --portfolio-primary: 230 100% 60%; /* #3366FF - Electric Blue */
+  --portfolio-secondary: 250 100% 8%; /* #0A0A1A - Deep Space */
+  --portfolio-accent: 170 100% 50%; /* #00FFAA - Neon Green */
+  --portfolio-neutral: 240 10% 5%; /* #0D0D14 - Dark Background */
+  --portfolio-glow: 230 100% 70%; /* #4D79FF - Glow Blue */
+  --portfolio-purple: 280 100% 60%; /* #9933FF - Electric Purple */
 }
 
 .dark {
@@ -108,9 +110,41 @@
     will-change: transform;
   }
 
+  /* Futuristic Navigation */
+  .futuristic-nav {
+    background: linear-gradient(135deg, 
+      rgba(10, 10, 26, 0.98) 0%, 
+      rgba(13, 13, 20, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(51, 102, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(51, 102, 255, 0.1);
+  }
+
   .nav-link {
     position: relative;
-    transition: color 0.2s ease;
+    font-family: 'Orbitron', monospace;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(51, 102, 255, 0.3), 
+      transparent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::before {
+    width: calc(100% + 20px);
   }
 
   .nav-link::after {
@@ -120,20 +154,149 @@
     height: 2px;
     bottom: -4px;
     left: 50%;
-    background-color: hsl(var(--portfolio-primary));
+    background: linear-gradient(90deg, 
+      hsl(var(--portfolio-accent)), 
+      hsl(var(--portfolio-primary)));
     transition: all 0.3s ease;
     transform: translateX(-50%);
+    box-shadow: 0 0 10px hsl(var(--portfolio-primary));
   }
 
   .nav-link:hover::after {
     width: 100%;
   }
 
+  /* 3D Hero Background */
+  .hero-3d-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+      hsl(var(--portfolio-secondary)) 0%,
+      hsl(var(--portfolio-neutral)) 50%,
+      hsl(var(--portfolio-secondary)) 100%);
+    overflow: hidden;
+  }
+
+  .code-matrix {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    font-family: 'Fira Code', monospace;
+    color: hsl(var(--portfolio-accent));
+    animation: matrix-rain 20s linear infinite;
+  }
+
+  @keyframes matrix-rain {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .floating-code {
+    position: absolute;
+    font-family: 'Fira Code', monospace;
+    color: hsl(var(--portfolio-primary));
+    opacity: 0.3;
+    animation: float-code 8s ease-in-out infinite;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  @keyframes float-code {
+    0%, 100% { 
+      transform: translateY(0) rotateX(0deg);
+      opacity: 0.3;
+    }
+    50% { 
+      transform: translateY(-30px) rotateX(180deg);
+      opacity: 0.6;
+    }
+  }
+
+  .glow-text {
+    text-shadow: 
+      0 0 10px hsl(var(--portfolio-primary)),
+      0 0 20px hsl(var(--portfolio-primary)),
+      0 0 40px hsl(var(--portfolio-primary));
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .neon-border {
+    border: 2px solid hsl(var(--portfolio-primary));
+    box-shadow: 
+      0 0 20px hsl(var(--portfolio-primary)),
+      inset 0 0 20px rgba(51, 102, 255, 0.1);
+    background: rgba(51, 102, 255, 0.05);
+  }
+
+  /* Geometric shapes animation */
+  .geometric-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    border: 1px solid rgba(51, 102, 255, 0.3);
+    animation: rotate-3d 10s linear infinite;
+  }
+
+  @keyframes rotate-3d {
+    0% { 
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% { 
+      transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+      opacity: 0.3;
+    }
+  }
+
+  .particle-system {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: hsl(var(--portfolio-accent));
+    border-radius: 50%;
+    animation: particle-float 15s linear infinite;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  @keyframes particle-float {
+    0% {
+      transform: translateY(100vh) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-10vh) translateX(100px);
+      opacity: 0;
+    }
+  }
+
   .section-divider {
     width: 80px;
     height: 4px;
-    background: hsl(var(--portfolio-primary));
+    background: linear-gradient(90deg, 
+      hsl(var(--portfolio-accent)), 
+      hsl(var(--portfolio-primary)));
     margin: 0 auto;
+    box-shadow: 0 0 10px hsl(var(--portfolio-primary));
   }
 
   .tech-icon {
@@ -142,6 +305,7 @@
 
   .tech-icon:hover {
     transform: scale(1.1) translateY(-2px);
+    filter: drop-shadow(0 0 15px hsl(var(--portfolio-primary)));
   }
 
   .floating-animation {
@@ -159,9 +323,10 @@
 
   .typing-animation {
     overflow: hidden;
-    border-right: 3px solid hsl(var(--portfolio-primary));
+    border-right: 3px solid hsl(var(--portfolio-accent));
     white-space: nowrap;
     animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    font-family: 'Fira Code', monospace;
   }
 
   @keyframes typing {
@@ -178,8 +343,36 @@
       border-color: transparent;
     }
     50% {
-      border-color: hsl(var(--portfolio-primary));
+      border-color: hsl(var(--portfolio-accent));
     }
+  }
+
+  .hologram-effect {
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(51, 102, 255, 0.1), 
+      rgba(0, 255, 170, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(51, 102, 255, 0.3);
+  }
+
+  .hologram-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.1), 
+      transparent);
+    animation: scan-line 2s ease-in-out infinite;
+  }
+
+  @keyframes scan-line {
+    0% { left: -100%; }
+    100% { left: 100%; }
   }
 }
 
