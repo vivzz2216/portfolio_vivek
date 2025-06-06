@@ -1,48 +1,6 @@
-import { useEffect, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { Brain, Code, Database, Cloud, Zap, Globe } from 'lucide-react';
-import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiDocker, SiAmazon } from 'react-icons/si';
-
-interface SkillBarProps {
-  skill: string;
-  percentage: number;
-  color: 'primary' | 'accent';
-  isVisible: boolean;
-  delay?: number;
-}
-
-function SkillBar({ skill, percentage, color, isVisible, delay = 0 }: SkillBarProps) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
-        setWidth(percentage);
-      }, 500 + delay);
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, percentage, delay]);
-
-  const colorClass = color === 'primary' ? 'bg-gradient-to-r from-portfolio-primary to-portfolio-accent' : 'bg-gradient-to-r from-portfolio-accent to-portfolio-primary';
-
-  return (
-    <div className="skill-item hologram-effect p-4 rounded-lg">
-      <div className="flex justify-between mb-3">
-        <span className="text-white font-medium font-['Fira_Code']">{skill}</span>
-        <span className="text-portfolio-accent font-['Orbitron'] font-semibold">{percentage}%</span>
-      </div>
-      <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-        <div 
-          className={`skill-bar ${colorClass} h-2 rounded-full transition-all duration-2000 ease-out shadow-lg`}
-          style={{ 
-            width: `${width}%`,
-            boxShadow: color === 'primary' ? '0 0 10px rgba(51, 102, 255, 0.6)' : '0 0 10px rgba(0, 255, 170, 0.6)'
-          }}
-        />
-      </div>
-    </div>
-  );
-}
+import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiDocker, SiAmazon, SiMysql, SiPostgresql, SiMongodb, SiTensorflow, SiPandas } from 'react-icons/si';
 
 export default function SkillsSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
@@ -50,33 +8,38 @@ export default function SkillsSection() {
   const { ref: techRef, isVisible: techVisible } = useScrollAnimation({ threshold: 0.2 });
 
   const frontendSkills = [
-    { skill: 'React / Next.js', percentage: 95 },
-    { skill: 'TypeScript / JavaScript', percentage: 92 },
-    { skill: 'CSS3 / Tailwind CSS', percentage: 88 },
-    { skill: 'UI/UX Design', percentage: 85 }
+    { name: 'React / Next.js', icon: SiReact, color: 'text-blue-400' },
+    { name: 'TypeScript / JavaScript', icon: SiTypescript, color: 'text-blue-500' },
+    { name: 'CSS3 / Tailwind CSS', icon: Code, color: 'text-purple-400' },
+    { name: 'UI/UX Design', icon: Globe, color: 'text-pink-400' }
   ];
 
   const backendSkills = [
-    { skill: 'Node.js / Express', percentage: 90 },
-    { skill: 'Python / FastAPI', percentage: 85 },
-    { skill: 'Database Design', percentage: 88 },
-    { skill: 'API Development', percentage: 92 }
+    { name: 'Java', icon: Code, color: 'text-red-400' },
+    { name: 'Node.js / Express', icon: SiNodedotjs, color: 'text-green-400' },
+    { name: 'Python', icon: SiPython, color: 'text-yellow-400' },
+    { name: 'SQL Databases', icon: Database, color: 'text-blue-300' }
   ];
 
-  const technologies = [
-    { name: 'React', icon: SiReact, color: 'text-blue-400' },
-    { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-400' },
-    { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-500' },
-    { name: 'Python', icon: SiPython, color: 'text-yellow-400' },
-    { name: 'Docker', icon: SiDocker, color: 'text-blue-600' },
-    { name: 'AWS', icon: SiAmazon, color: 'text-orange-400' }
+  const aiDataSkills = [
+    { name: 'Machine Learning', icon: Brain, color: 'text-purple-500' },
+    { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-400' },
+    { name: 'Data Science', icon: SiPandas, color: 'text-blue-600' },
+    { name: 'Pandas / NumPy', icon: SiPython, color: 'text-yellow-500' }
+  ];
+
+  const databases = [
+    { name: 'MySQL', icon: SiMysql, color: 'text-blue-500' },
+    { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-600' },
+    { name: 'MongoDB', icon: SiMongodb, color: 'text-green-500' },
+    { name: 'SQL', icon: Database, color: 'text-purple-400' }
   ];
 
   const expertise = [
-    { title: 'Frontend Development', icon: Code, description: 'Modern React applications with stunning UIs' },
-    { title: 'Backend Architecture', icon: Database, description: 'Scalable APIs and database solutions' },
-    { title: 'Cloud Solutions', icon: Cloud, description: 'AWS deployment and DevOps practices' },
-    { title: 'AI Integration', icon: Brain, description: 'Implementing AI-powered features' }
+    { title: 'Full-Stack Development', icon: Code, description: 'Complete web applications from frontend to backend' },
+    { title: 'AI & Machine Learning', icon: Brain, description: 'Intelligent systems and data-driven solutions' },
+    { title: 'Database Design', icon: Database, description: 'Efficient data modeling and SQL optimization' },
+    { title: 'Cloud & DevOps', icon: Cloud, description: 'Modern deployment and infrastructure management' }
   ];
 
   return (
@@ -105,18 +68,18 @@ export default function SkillsSection() {
           }`}>
             <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
               <Code className="mr-3 w-6 h-6" />
-              Frontend Mastery
+              Frontend Technologies
             </h3>
-            <div className="space-y-6">
-              {frontendSkills.map((item, index) => (
-                <SkillBar
-                  key={item.skill}
-                  skill={item.skill}
-                  percentage={item.percentage}
-                  color="primary"
-                  isVisible={skillsVisible}
-                  delay={index * 200}
-                />
+            <div className="grid grid-cols-2 gap-4">
+              {frontendSkills.map((skill, index) => (
+                <div 
+                  key={skill.name}
+                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -127,25 +90,68 @@ export default function SkillsSection() {
           }`}>
             <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
               <Database className="mr-3 w-6 h-6" />
-              Backend Power
+              Backend Technologies
             </h3>
-            <div className="space-y-6">
-              {backendSkills.map((item, index) => (
-                <SkillBar
-                  key={item.skill}
-                  skill={item.skill}
-                  percentage={item.percentage}
-                  color="accent"
-                  isVisible={skillsVisible}
-                  delay={index * 200}
-                />
+            <div className="grid grid-cols-2 gap-4">
+              {backendSkills.map((skill, index) => (
+                <div 
+                  key={skill.name}
+                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* AI & Data Science Skills */}
+        <div className={`grid lg:grid-cols-2 gap-12 mb-16 transition-all duration-700 delay-400 ${
+          skillsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div>
+            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+              <Brain className="mr-3 w-6 h-6" />
+              AI & Data Science
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {aiDataSkills.map((skill, index) => (
+                <div 
+                  key={skill.name}
+                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+              <Database className="mr-3 w-6 h-6" />
+              Database Technologies
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {databases.map((db, index) => (
+                <div 
+                  key={db.name}
+                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <db.icon className={`text-3xl ${db.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                  <p className="text-sm text-gray-300 font-['Fira_Code']">{db.name}</p>
+                </div>
               ))}
             </div>
           </div>
         </div>
 
         {/* Expertise Areas */}
-        <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-700 delay-400 ${
+        <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-700 delay-600 ${
           skillsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {expertise.map((area, index) => (
@@ -159,32 +165,6 @@ export default function SkillsSection() {
               <p className="text-gray-400 text-sm font-['Fira_Code']">{area.description}</p>
             </div>
           ))}
-        </div>
-        
-        {/* Technology Icons */}
-        <div ref={techRef} className={`transition-all duration-700 delay-600 ${
-          techVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <h3 className="text-2xl font-semibold text-portfolio-accent text-center mb-8 font-['Orbitron'] flex items-center justify-center">
-            <Zap className="mr-3 w-6 h-6" />
-            Technology Stack
-          </h3>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8">
-            {technologies.map((tech, index) => (
-              <div 
-                key={tech.name}
-                className="text-center group cursor-pointer tech-icon"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="hologram-effect p-6 rounded-xl hover:scale-110 transition-all duration-300">
-                  <tech.icon className={`text-4xl ${tech.color} mx-auto mb-3 group-hover:animate-pulse`} />
-                  <p className="text-sm text-gray-300 group-hover:text-portfolio-accent transition-colors duration-300 font-['Fira_Code']">
-                    {tech.name}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
