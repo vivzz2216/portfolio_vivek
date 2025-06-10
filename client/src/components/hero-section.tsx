@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { ChevronDown, Terminal, Code2, Database, Cloud } from 'lucide-react';
+import { ChevronDown, Terminal, Code2, Database, Cloud, Github, Linkedin } from 'lucide-react';
 import { useParallax } from '@/hooks/use-parallax';
+import { useState, useEffect } from 'react';
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,76 +9,71 @@ export default function HeroSection() {
   const parallaxOffset = useParallax(0.3);
 
   const titles = [
-    'Web Developer',
-    'UI/UX Designer', 
-    'Full-Stack Engineer',
-    'Tech Innovator'
+    "Full Stack Developer",
+    "Tech Enthusiast",
+    "Problem Solver",
+    "Innovator"
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
+    setIsVisible(true);
   }, []);
 
   useEffect(() => {
-    let titleIndex = 0;
-    let charIndex = 0;
+    let currentIndex = 0;
+    let currentCharIndex = 0;
     let isDeleting = false;
+    let typingSpeed = 100;
 
-    const typeEffect = () => {
-      const currentTitle = titles[titleIndex];
+    const type = () => {
+      const currentTitle = titles[currentIndex];
       
-      if (!isDeleting) {
-        setCurrentText(currentTitle.slice(0, charIndex + 1));
-        charIndex++;
-        
-        if (charIndex === currentTitle.length) {
-          setTimeout(() => {
-            isDeleting = true;
-          }, 2000);
-        }
+      if (isDeleting) {
+        setCurrentText(currentTitle.substring(0, currentCharIndex - 1));
+        currentCharIndex--;
+        typingSpeed = 50;
       } else {
-        setCurrentText(currentTitle.slice(0, charIndex - 1));
-        charIndex--;
-        
-        if (charIndex === 0) {
-          isDeleting = false;
-          titleIndex = (titleIndex + 1) % titles.length;
-        }
+        setCurrentText(currentTitle.substring(0, currentCharIndex + 1));
+        currentCharIndex++;
+        typingSpeed = 100;
       }
+
+      if (!isDeleting && currentCharIndex === currentTitle.length) {
+        isDeleting = true;
+        typingSpeed = 2000;
+      } else if (isDeleting && currentCharIndex === 0) {
+          isDeleting = false;
+        currentIndex = (currentIndex + 1) % titles.length;
+        typingSpeed = 500;
+      }
+
+      setTimeout(type, typingSpeed);
     };
 
-    const interval = setInterval(typeEffect, isDeleting ? 100 : 150);
-    return () => clearInterval(interval);
+    const timer = setTimeout(type, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
-      const offsetTop = aboutSection.offsetTop - 70;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Generate floating code elements
+  const particles = Array.from({ length: 50 }, (_, i) => i);
   const codeElements = [
-    'const dev = () => {}',
-    'npm install future',
-    'git commit -m "magic"',
-    'function innovate()',
-    'import React from \'react\'',
-    'export default App',
-    '{ success: true }',
-    'async await promise',
-    'console.log("hello")',
-    'transform: scale(1.1)'
+    'function create() {',
+    'const app = new App();',
+    'app.initialize();',
+    'return app;',
+    '}',
+    'class Developer {',
+    'constructor() {',
+    'this.skills = [];',
+    '}',
+    '}'
   ];
-
-  // Generate particles
-  const particles = Array.from({ length: 30 }, (_, i) => i);
 
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -171,8 +166,32 @@ export default function HeroSection() {
           <Cloud className="w-8 h-8 text-portfolio-primary hover:text-portfolio-accent transition-colors duration-300 hover:scale-110 transform" />
         </div>
 
+        {/* Social Links */}
+        <div className={`flex justify-center gap-4 mb-8 transition-all duration-1000 delay-600 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <a 
+            href="https://github.com/vivzz2216"
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white transition-colors"
+            aria-label="GitHub Profile"
+          >
+            <Github className="w-6 h-6" />
+          </a>
+          <a 
+            href="https://www.linkedin.com/in/vivek-pillai-281a68253/"
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white transition-colors"
+            aria-label="LinkedIn Profile"
+          >
+            <Linkedin className="w-6 h-6" />
+          </a>
+        </div>
+
         {/* CTA Button */}
-        <div className={`transition-all duration-1000 delay-600 ${
+        <div className={`transition-all duration-1000 delay-800 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <button
@@ -187,7 +206,7 @@ export default function HeroSection() {
         </div>
 
         {/* Status Indicator */}
-        <div className={`mt-8 flex justify-center items-center space-x-3 transition-all duration-1000 delay-800 ${
+        <div className={`mt-8 flex justify-center items-center space-x-3 transition-all duration-1000 delay-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div className="w-3 h-3 bg-portfolio-accent rounded-full animate-pulse"></div>
@@ -204,6 +223,14 @@ export default function HeroSection() {
           <ChevronDown size={24} className="animate-pulse" />
         </div>
       </div>
+
+      {/* Add admin link */}
+      <a
+        href="/admin"
+        className="absolute top-4 right-4 text-sm text-gray-400 hover:text-white transition-colors"
+      >
+        Admin
+      </a>
     </section>
   );
 }

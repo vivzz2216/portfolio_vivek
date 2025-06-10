@@ -55,7 +55,6 @@ export default function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
       toast({
         title: "Validation Error",
@@ -65,7 +64,6 @@ export default function ContactSection() {
       return;
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast({
@@ -80,23 +78,23 @@ export default function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Mail, text: 'vivek.pillai@dev.com', href: 'mailto:vivek.pillai@dev.com' },
-    { icon: Phone, text: '+91 (999) 888-7777', href: 'tel:+919998887777' },
-    { icon: MapPin, text: 'Mumbai, India', href: '#' }
+    { icon: Mail, text: 'vivek.pillai@dev.com', href: 'mailto:vivek.pillai@dev.com', label: 'Email' },
+    { icon: Phone, text: '+91 (999) 888-7777', href: 'tel:+919998887777', label: 'Phone' },
+    { icon: MapPin, text: 'Mumbai, India', href: '#', label: 'Location' }
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Twitter, href: '#', label: 'Twitter' }
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/vivek-pillai-281a68253/', label: 'LinkedIn Profile' },
+    { icon: Github, href: 'https://github.com/vivzz2216', label: 'GitHub Profile' },
+    { icon: Twitter, href: '#', label: 'Twitter Profile' }
   ];
 
   return (
     <section id="contact" ref={sectionRef} className="py-20 bg-portfolio-neutral relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Animated background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-portfolio-primary/10 to-portfolio-accent/10 opacity-10">
         <div className="particle-system">
-          {Array.from({ length: 15 }, (_, i) => (
+          {Array.from({ length: 20 }, (_, i) => (
             <div 
               key={i}
               className="particle"
@@ -112,7 +110,7 @@ export default function ContactSection() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 transition-all duration-700 font-['Orbitron'] ${
+          <h2 className={`text-5xl md:text-6xl font-bold text-white mb-4 transition-all duration-700 font-['Exo_2'] ${
             sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             <span className="glow-text">ESTABLISH CONNECTION</span>
@@ -127,13 +125,13 @@ export default function ContactSection() {
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Info */}
           <div ref={infoRef} className={`transition-all duration-700 ${
             infoVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
           }`}>
             <div className="hologram-effect p-8 rounded-xl">
-              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+              <h3 className="text-3xl font-semibold text-portfolio-accent mb-8 font-['Exo_2'] flex items-center glow-text">
                 <Zap className="mr-3 w-6 h-6" />
                 Contact Channels
               </h3>
@@ -142,6 +140,7 @@ export default function ContactSection() {
                   <a
                     key={index}
                     href={item.href}
+                    aria-label={`Contact via ${item.label}`}
                     className="flex items-center group hover:text-portfolio-accent transition-all duration-300 p-3 rounded-lg hover:bg-portfolio-primary/10"
                   >
                     <div className="w-12 h-12 bg-portfolio-primary/20 rounded-full flex items-center justify-center mr-4 group-hover:bg-portfolio-accent/20 transition-all duration-300">
@@ -156,7 +155,7 @@ export default function ContactSection() {
               
               {/* Social Links */}
               <div className="mt-12">
-                <h4 className="text-lg font-semibold text-portfolio-accent mb-6 font-['Orbitron']">
+                <h4 className="text-xl font-semibold text-portfolio-accent mb-6 font-['Exo_2'] glow-text">
                   Social Networks
                 </h4>
                 <div className="flex space-x-4">
@@ -176,7 +175,7 @@ export default function ContactSection() {
               {/* Status Indicator */}
               <div className="mt-8 flex items-center space-x-3">
                 <div className="w-3 h-3 bg-portfolio-accent rounded-full animate-pulse"></div>
-                <span className="text-sm font-['Fira_Code'] text-portfolio-accent">
+                <span className="text-sm font-['Fira_Code'] text-portfolio-accent glow-text">
                   STATUS: AVAILABLE FOR PROJECTS
                 </span>
               </div>
@@ -188,7 +187,7 @@ export default function ContactSection() {
             formVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
           }`}>
             <div className="hologram-effect p-8 rounded-xl">
-              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+              <h3 className="text-3xl font-semibold text-portfolio-accent mb-8 font-['Exo_2'] flex items-center glow-text">
                 <Send className="mr-3 w-6 h-6" />
                 Send Message
               </h3>
@@ -204,7 +203,8 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-portfolio-secondary/50 border-portfolio-primary/30 text-white focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter']"
+                    placeholder="Enter your full name"
+                    className="w-full bg-portfolio-neutral border-portfolio-primary/30 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter'] px-4 py-3 hover:shadow-md"
                   />
                 </div>
                 
@@ -219,7 +219,8 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-portfolio-secondary/50 border-portfolio-primary/30 text-white focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter']"
+                    placeholder="Enter your email address"
+                    className="w-full bg-portfolio-neutral border-portfolio-primary/30 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter'] px-4 py-3 hover:shadow-md"
                   />
                 </div>
                 
@@ -234,7 +235,8 @@ export default function ContactSection() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-portfolio-secondary/50 border-portfolio-primary/30 text-white focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter']"
+                    placeholder="Enter message subject"
+                    className="w-full bg-portfolio-neutral border-portfolio-primary/30 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 font-['Inter'] px-4 py-3 hover:shadow-md"
                   />
                 </div>
                 
@@ -249,14 +251,15 @@ export default function ContactSection() {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-portfolio-secondary/50 border-portfolio-primary/30 text-white focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 resize-none font-['Inter']"
+                    placeholder="Type your message here..."
+                    className="w-full bg-portfolio-neutral border-portfolio-primary/30 text-white placeholder:text-gray-400 focus:ring-2 focus:ring-portfolio-accent focus:border-portfolio-accent transition-all duration-300 resize-none font-['Inter'] px-4 py-3 hover:shadow-md"
                   />
                 </div>
                 
                 <Button
                   type="submit"
                   disabled={contactMutation.isPending}
-                  className="w-full neon-border px-8 py-4 bg-transparent text-white font-['Orbitron'] font-semibold tracking-wider uppercase hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full neon-border px-8 py-4 bg-transparent text-white font-['Exo_2'] font-semibold tracking-wider uppercase hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="flex items-center justify-center">
                     {contactMutation.isPending ? (

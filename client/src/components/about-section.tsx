@@ -1,128 +1,134 @@
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
-import { Code2, Zap, Globe, Award } from 'lucide-react';
+import { Code2, Rocket, Brain, Zap, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function AboutSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
-  const { ref: imageRef, isVisible: imageVisible } = useScrollAnimation({ threshold: 0.3 });
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.2 });
 
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/resume/vivekpillai_resume.pdf';
+    link.download = 'vivekpillai_resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const skills = [
+    {
+      icon: Code2,
+      title: "Full Stack Development",
+      description: "Proficient in building scalable web applications using modern frameworks and best practices."
+    },
+    {
+      icon: Rocket,
+      title: "Performance Optimization",
+      description: "Expert in optimizing application performance, ensuring fast load times and smooth user experiences."
+    },
+    {
+      icon: Brain,
+      title: "Problem Solving",
+      description: "Strong analytical skills with a track record of solving complex technical challenges."
+    },
+    {
+      icon: Zap,
+      title: "Innovation",
+      description: "Passionate about exploring new technologies and implementing creative solutions."
+    }
+  ];
+
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-portfolio-secondary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" ref={sectionRef} className="py-20 bg-portfolio-neutral relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-portfolio-primary/5 to-portfolio-accent/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-portfolio-primary/10 via-transparent to-transparent opacity-50" />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 transition-all duration-700 font-['Orbitron'] ${
+          <h2 className={`text-5xl md:text-6xl font-bold text-white mb-4 transition-all duration-700 font-['Exo_2'] ${
             sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <span className="glow-text">ABOUT THE DEVELOPER</span>
+            <span className="glow-text">ABOUT ME</span>
           </h2>
           <div className={`section-divider transition-all duration-700 delay-200 ${
             sectionVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
           }`} />
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Profile Photo with Futuristic Frame */}
-          <div ref={imageRef} className={`text-center lg:text-left transition-all duration-700 ${
-            imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+        {/* Main Content */}
+        <div ref={contentRef} className={`grid lg:grid-cols-2 gap-12 items-start transition-all duration-700 ${
+          contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <div className="relative inline-block">
-              <div className="hologram-effect rounded-2xl p-6">
+          {/* Left Column - Profile and Introduction */}
+          <div className="space-y-8">
+            {/* Profile Card */}
+            <div className="hologram-effect p-8 rounded-xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-portfolio-primary/20 to-portfolio-accent/20 opacity-50" />
+              <div className="relative z-10">
+                <div className="flex items-center space-x-6 mb-6">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-portfolio-accent/50 shadow-lg shadow-portfolio-accent/20">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500"
-                  alt="Vivek Pillai - Professional Developer" 
-                  className="w-80 h-80 rounded-xl object-cover mx-auto shadow-2xl shadow-portfolio-primary/30"
+                  src="/images/vivek.jpg"
+                      alt="Vivek Pillai" 
+                      className="w-full h-full object-cover"
                 />
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-portfolio-accent rounded-full flex items-center justify-center animate-pulse">
-                  <Code2 className="w-6 h-6 text-portfolio-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2 font-['Exo_2']">Vivek Pillai</h3>
+                    <p className="text-portfolio-accent font-['Inter']">Full Stack Developer</p>
                 </div>
-                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-portfolio-primary rounded-full flex items-center justify-center animate-pulse">
-                  <Zap className="w-6 h-6 text-white" />
                 </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* About Content */}
-          <div ref={contentRef} className={`transition-all duration-700 delay-200 ${
-            contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-          }`}>
-            <h3 className="text-2xl font-semibold text-portfolio-accent mb-4 font-['Orbitron']">
-              Vivek Pillai — Creative Web Developer | AI Enthusiast | Full-Stack Learner
-            </h3>
-            <h4 className="text-xl font-medium text-white mb-6 font-['Orbitron']">
-              Digital Architect & Innovation Engineer
-            </h4>
-            
-            <p className="text-gray-300 text-lg mb-6 leading-relaxed font-['Inter']">
-              I'm Vivek Pillai, a 3rd-year IT Engineering student at SFIT with a deep interest in full-stack development and artificial intelligence. 
-              I build modern, responsive web applications and explore intelligent systems using Java, Data Science, and Machine Learning.
+                <p className="text-gray-300 text-lg leading-relaxed font-['Inter']">
+                  I'm a passionate Full Stack Developer with a keen eye for creating elegant solutions to complex problems. 
+                  With expertise in modern web technologies and a strong foundation in software engineering principles, 
+                  I craft applications that are not just functional, but also intuitive and engaging.
             </p>
-            <p className="text-gray-300 text-lg mb-8 leading-relaxed font-['Inter']">
-              From front-end designs to AI-backed logic, I enjoy turning innovative ideas into digital solutions that make a difference.
-            </p>
-            
-            {/* Experience & Stats */}
-            <div className="mb-8">
-              <h5 className="text-lg font-semibold text-portfolio-accent mb-4 font-['Orbitron'] flex items-center">
-                💼 Experience & Stats
-              </h5>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="hologram-effect p-4 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-portfolio-accent font-['Orbitron']">5+</div>
-                  <div className="text-gray-400 text-sm font-['Fira_Code']">Projects completed</div>
-                </div>
-                <div className="hologram-effect p-4 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-portfolio-accent font-['Orbitron']">4</div>
-                  <div className="text-gray-400 text-sm font-['Fira_Code']">Years of development journey</div>
-                </div>
-                <div className="hologram-effect p-4 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-portfolio-accent font-['Orbitron']">Multi</div>
-                  <div className="text-gray-400 text-sm font-['Fira_Code']">Tech expertise</div>
-                </div>
+                <p className="text-gray-300 text-lg leading-relaxed mt-4 font-['Inter']">
+                  My journey in tech is driven by a constant desire to learn and innovate. I believe in writing clean, 
+                  maintainable code and creating user experiences that make a difference.
+                </p>
               </div>
             </div>
 
-            {/* Passion & Purpose */}
-            <div className="mb-8">
-              <h5 className="text-lg font-semibold text-portfolio-accent mb-4 font-['Orbitron'] flex items-center">
-                ❤️ Passion & Purpose
-              </h5>
-              <p className="text-gray-300 leading-relaxed font-['Inter']">
-                To blend creativity with code, mastering both development and AI tools to solve real-world challenges — always learning, always building.
-              </p>
-            </div>
-
-            {/* Download Resume Button */}
-            <div className="mt-8">
-              <button 
-                onClick={() => {
-                  // Create a sample resume download
-                  const link = document.createElement('a');
-                  link.href = '#'; // In real implementation, this would be the actual resume file
-                  link.download = 'Vivek_Pillai_Resume.pdf';
-                  link.click();
-                }}
-                className="neon-border hologram-effect px-6 py-3 rounded-lg text-white font-['Orbitron'] font-semibold tracking-wider uppercase hover:scale-105 transition-all duration-300 flex items-center"
+            {/* Resume Download Button */}
+            <div className="flex justify-center">
+              <Button
+                onClick={downloadResume}
+                className="neon-border px-8 py-4 bg-transparent text-white font-['Exo_2'] font-semibold tracking-wider uppercase hover:scale-105 transition-all duration-300"
               >
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
+                <Download className="mr-2 w-5 h-5" />
                 Download Resume
-              </button>
+              </Button>
+            </div>
             </div>
 
-            {/* Skills Tags */}
-            <div className="mt-8">
-              <div className="flex flex-wrap gap-3">
-                {['Java', 'React.js', 'Node.js', 'AI/ML', 'Data Science', 'SQL'].map((skill) => (
-                  <span 
-                    key={skill}
-                    className="px-4 py-2 bg-portfolio-primary/20 border border-portfolio-primary/50 rounded-full text-portfolio-accent text-sm font-['Fira_Code'] hover:bg-portfolio-primary/30 transition-all duration-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
+          {/* Right Column - Skills */}
+          <div className="space-y-8">
+            {/* Skills Grid */}
+            <div className="grid grid-cols-1 gap-6">
+              {skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="hologram-effect p-6 rounded-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-portfolio-primary/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <skill.icon className="text-portfolio-accent" size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-semibold text-portfolio-accent mb-2 font-['Exo_2']">
+                        {skill.title}
+                      </h4>
+                      <p className="text-gray-300 text-sm font-['Inter']">
+                        {skill.description}
+                      </p>
+                    </div>
               </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
