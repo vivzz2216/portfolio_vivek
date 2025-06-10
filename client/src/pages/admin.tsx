@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AdminMessages } from '../components/admin-messages';
 
 export default function AdminPage() {

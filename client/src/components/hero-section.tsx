@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentText, setCurrentText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
   const parallaxOffset = useParallax(0.3);
 
   const titles = [

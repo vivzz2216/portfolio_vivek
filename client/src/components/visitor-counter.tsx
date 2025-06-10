@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Eye, Users } from 'lucide-react';
+import { Eye } from 'lucide-react';
 
 export default function VisitorCounter() {
   const [visitors, setVisitors] = useState(0);

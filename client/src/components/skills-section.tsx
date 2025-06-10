@@ -1,11 +1,10 @@
+import { Brain, Code, Database, Cloud, Globe } from 'lucide-react';
+import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiMysql, SiPostgresql, SiMongodb, SiTensorflow, SiPandas } from 'react-icons/si';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
-import { Brain, Code, Database, Cloud, Zap, Globe } from 'lucide-react';
-import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiDocker, SiAmazon, SiMysql, SiPostgresql, SiMongodb, SiTensorflow, SiPandas } from 'react-icons/si';
 
 export default function SkillsSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation();
-  const { ref: skillsRef, isVisible: skillsVisible } = useScrollAnimation({ threshold: 0.3 });
-  const { ref: techRef, isVisible: techVisible } = useScrollAnimation({ threshold: 0.2 });
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.2 });
 
   const frontendSkills = [
     { name: 'React / Next.js', icon: SiReact, color: 'text-blue-400' },
@@ -43,7 +42,7 @@ export default function SkillsSection() {
   ];
 
   return (
-    <section id="skills" ref={sectionRef} className="py-20 bg-portfolio-neutral">
+    <section id="skills" ref={sectionRef} className="py-20 bg-portfolio-neutral relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 transition-all duration-700 font-['Orbitron'] ${
@@ -61,110 +60,114 @@ export default function SkillsSection() {
           </p>
         </div>
         
-        <div ref={skillsRef} className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* Frontend Skills */}
-          <div className={`transition-all duration-700 ${
-            skillsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-          }`}>
-            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
-              <Code className="mr-3 w-6 h-6" />
-              Frontend Technologies
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {frontendSkills.map((skill, index) => (
-                <div 
-                  key={skill.name}
-                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
-                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Backend Skills */}
-          <div className={`transition-all duration-700 delay-200 ${
-            skillsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-          }`}>
-            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
-              <Database className="mr-3 w-6 h-6" />
-              Backend Technologies
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {backendSkills.map((skill, index) => (
-                <div 
-                  key={skill.name}
-                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
-                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* AI & Data Science Skills */}
-        <div className={`grid lg:grid-cols-2 gap-12 mb-16 transition-all duration-700 delay-400 ${
-          skillsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        <div ref={contentRef} className={`transition-all duration-1000 ${
+          contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <div>
-            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
-              <Brain className="mr-3 w-6 h-6" />
-              AI & Data Science
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {aiDataSkills.map((skill, index) => (
-                <div 
-                  key={skill.name}
-                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
-                  <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
-                </div>
-              ))}
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* Frontend Skills */}
+            <div className={`transition-all duration-700 ${
+              contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            }`}>
+              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+                <Code className="mr-3 w-6 h-6" />
+                Frontend Technologies
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {frontendSkills.map((skill, index) => (
+                  <div 
+                    key={skill.name}
+                    className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                    <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Backend Skills */}
+            <div className={`transition-all duration-700 delay-200 ${
+              contentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            }`}>
+              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+                <Database className="mr-3 w-6 h-6" />
+                Backend Technologies
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {backendSkills.map((skill, index) => (
+                  <div 
+                    key={skill.name}
+                    className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                    <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
-              <Database className="mr-3 w-6 h-6" />
-              Database Technologies
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {databases.map((db, index) => (
-                <div 
-                  key={db.name}
-                  className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <db.icon className={`text-3xl ${db.color} mx-auto mb-3 group-hover:animate-pulse`} />
-                  <p className="text-sm text-gray-300 font-['Fira_Code']">{db.name}</p>
-                </div>
-              ))}
+          {/* AI & Data Science Skills */}
+          <div className={`grid lg:grid-cols-2 gap-12 mb-16 transition-all duration-700 delay-400 ${
+            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div>
+              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+                <Brain className="mr-3 w-6 h-6" />
+                AI & Data Science
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {aiDataSkills.map((skill, index) => (
+                  <div 
+                    key={skill.name}
+                    className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <skill.icon className={`text-3xl ${skill.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                    <p className="text-sm text-gray-300 font-['Fira_Code']">{skill.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-portfolio-accent mb-8 font-['Orbitron'] flex items-center">
+                <Database className="mr-3 w-6 h-6" />
+                Database Technologies
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {databases.map((db, index) => (
+                  <div 
+                    key={db.name}
+                    className="hologram-effect p-4 rounded-lg text-center hover:scale-105 transition-all duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <db.icon className={`text-3xl ${db.color} mx-auto mb-3 group-hover:animate-pulse`} />
+                    <p className="text-sm text-gray-300 font-['Fira_Code']">{db.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Expertise Areas */}
-        <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-700 delay-600 ${
-          skillsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          {expertise.map((area, index) => (
-            <div 
-              key={area.title}
-              className="hologram-effect p-6 rounded-xl text-center hover:scale-105 transition-all duration-300"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <area.icon className="w-12 h-12 text-portfolio-primary mx-auto mb-4" />
-              <h4 className="text-white font-semibold mb-2 font-['Orbitron']">{area.title}</h4>
-              <p className="text-gray-400 text-sm font-['Fira_Code']">{area.description}</p>
-            </div>
-          ))}
+          {/* Expertise Areas */}
+          <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-700 delay-600 ${
+            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            {expertise.map((area, index) => (
+              <div 
+                key={area.title}
+                className="hologram-effect p-6 rounded-xl text-center hover:scale-105 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <area.icon className="w-12 h-12 text-portfolio-primary mx-auto mb-4" />
+                <h4 className="text-white font-semibold mb-2 font-['Orbitron']">{area.title}</h4>
+                <p className="text-gray-400 text-sm font-['Fira_Code']">{area.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

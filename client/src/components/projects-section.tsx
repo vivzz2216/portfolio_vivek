@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Rocket, Star } from 'lucide-react';
+import { Github, Rocket, Star } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 interface ProjectCardProps {
@@ -113,14 +113,6 @@ export default function ProjectsSection() {
       liveDemo: "https://drona-ai-demo.com"
     },
     {
-      title: "Project 2",
-      description: "Description of your second project goes here. Make it compelling and highlight the key features and technologies used.",
-      image: "/images/project2.jpg",
-      technologies: ["React", "Node.js", "MongoDB"],
-      github: "https://github.com/yourusername/project2",
-      liveDemo: "https://project2-demo.com"
-    },
-    {
       title: "Project 3",
       description: "Description of your third project goes here. Make it compelling and highlight the key features and technologies used.",
       image: "/images/project3.jpg",
@@ -154,47 +146,17 @@ export default function ProjectsSection() {
         <div ref={contentRef} className={`grid gap-12 transition-all duration-700 ${
           contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="hologram-effect rounded-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300"
-            >
-              <div className="grid lg:grid-cols-2 gap-8 p-8">
-                {/* Project Image */}
-                <div className="relative aspect-video rounded-lg overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className={`w-full h-full ${project.title === "Drona AI" ? "object-contain" : "object-cover"}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                </div>
-
-                {/* Project Content */}
-                <div className="flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-4 font-['Exo_2']">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 mb-6 font-['Inter']">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-portfolio-primary/20 border border-portfolio-primary/50 rounded-full text-portfolio-accent text-sm font-['Inter']"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                {...project}
+                isVisible={contentVisible}
+                delay={index * 200}
+                featured={index === 0}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
