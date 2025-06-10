@@ -29,9 +29,9 @@ function ProjectCard({ title, description, image, hoverImage, technologies, live
       )}
       <div className="relative overflow-hidden">
         <div className="relative w-full h-48">
-          <img 
-            src={image}
-            alt={title}
+        <img 
+          src={image}
+          alt={title}
             className="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 group-hover:opacity-0"
           />
           {hoverImage && (
@@ -39,7 +39,7 @@ function ProjectCard({ title, description, image, hoverImage, technologies, live
               src={hoverImage}
               alt={`${title} hover`}
               className="absolute inset-0 w-full h-full object-contain transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-            />
+        />
           )}
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-portfolio-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -149,7 +149,7 @@ export default function ProjectsSection() {
             sectionVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
           }`} />
         </div>
-
+        
         {/* Projects Grid */}
         <div ref={contentRef} className={`grid gap-12 transition-all duration-700 ${
           contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
